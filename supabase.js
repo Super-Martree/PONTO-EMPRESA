@@ -1,4 +1,4 @@
-const supabaseUrl = "SUA_URL_NOVA_AQUI";
-const supabaseKey = "SUA_CHAVE_PUBLISHABLE_NOVA_AQUI";
+const supabaseUrl = "https://xwtdjepzqbltwopnpadg.supabase.co";
+const supabaseKey = "sb_publishable_w0a1x2m_qAH6AXX6-nnmKA_uZMO4klF";
 
 window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
