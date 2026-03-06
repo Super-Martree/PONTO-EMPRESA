@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login | Martree</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="top">
+  <div class="topInner">
+    <div class="brand">
+      <img src="assets/logo.png" alt="Logo Martree" class="logo" />
+      <div class="topTitle">
+        <h1>Portal de Ponto</h1>
+        <p class="empresa">Martree</p>
+        <p class="muted">Acesse com seu login</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap compact">
+  <section class="card">
+    <h2>Entrar</h2>
+
+    <label>E-mail</label>
+    <input id="email" type="email" placeholder="seuemail@martree.com" autocomplete="username"/>
+
+    <label>Senha</label>
+    <input id="password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+
+    <div class="grid grid-compact" style="grid-template-columns:1fr;">
+      <button id="btnLogin" class="btn" type="button">Entrar</button>
+      <button id="btnReset" class="btn ghost" type="button">Esqueci minha senha</button>
+    </div>
+
+    <p id="msgLogin" class="msg"></p>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="muted small">© <span id="year"></span> Martree</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  const supabaseUrl = "https://gnmwpudkvhsmtxmypuyt.supabase.co";
+  const supabaseKey = "sb_publishable_ewFZG81p4bVSO3Koyhp_LQ_xI4bXPTc";
+  window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+<script src="login.js?v=1"></script>
+</body>
+</html>
