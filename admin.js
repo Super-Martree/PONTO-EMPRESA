@@ -49,7 +49,7 @@ function isoToDate(iso){
 
 function mondayOfWeekISO(dateISO){
   const dt = isoToDate(dateISO);
-  const day = dt.getDay(); // 0 dom .. 6 sáb
+  const day = dt.getDay();
   const diffToMon = (day === 0) ? 6 : (day - 1);
   dt.setDate(dt.getDate() - diffToMon);
   const y = dt.getFullYear();
@@ -76,13 +76,12 @@ function secondsToHHMMsigned(sec){
   return sign + secondsToHHMM(Math.abs(sec || 0));
 }
 
-// exporta como texto para Excel não virar fórmula
 function secondsToHHMMsignedCSV(sec){
   return "'" + secondsToHHMMsigned(sec);
 }
 
 function hhmm(t){
-  if(!t) return "";
+  if(!t) return "-";
   const s = String(t).split("+")[0];
   const parts = s.split(":");
   if(parts.length < 2) return s;
@@ -166,7 +165,7 @@ function showSemMsg(text, ok){
   setTimeout(()=> (el.textContent=""), 3000);
 }
 
-// ===== regras de meta / intervalo =====
+// ===== regras de meta =====
 const META_9H = 9*3600;
 const META_8H = 8*3600;
 const META_7H20 = 7*3600 + 20*60;
@@ -189,7 +188,7 @@ async function trabalhaSabadoNaSemana(empId, dataISO){
 }
 
 async function metaDoDia(empId, dataISO){
-  const d = isoToDate(dataISO).getDay(); // 0 dom .. 6 sáb
+  const d = isoToDate(dataISO).getDay();
   if(d === 0) return 0;
 
   const semanaSab = await trabalhaSabadoNaSemana(empId, dataISO);
@@ -198,7 +197,7 @@ async function metaDoDia(empId, dataISO){
     return (d >= 1 && d <= 6) ? META_7H20 : 0;
   } else {
     if(d === 6) return 0;
-    if(d === 2) return META_8H; // terça
+    if(d === 2) return META_8H;
     return META_9H;
   }
 }
@@ -318,10 +317,7 @@ async function setupEscalaAdmin(){
   const btnToggle = $("admToggleSabado");
   const btnSalvar = $("admSalvar");
 
-  if(!sel || !inp || !btnToggle || !btnSalvar){
-    console.warn("Elementos do card de escala não encontrados no admin.html");
-    return;
-  }
+  if(!sel || !inp || !btnToggle || !btnSalvar) return;
 
   const d = new Date();
   const hojeISO = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
@@ -376,7 +372,7 @@ async function setupEscalaAdmin(){
   await refreshEscalaUI();
 }
 
-// ===== consulta semanal =====
+// ===== consulta semanal detalhada =====
 async function getPontosSemana(empIds, startISO, endISO){
   if(!empIds.length) return [];
 
@@ -396,9 +392,30 @@ async function getPontosSemana(empIds, startISO, endISO){
   return data || [];
 }
 
-function cellHoras(horasSeg){
-  if(horasSeg == null) return "-";
-  return secondsToHHMM(horasSeg);
+function renderDayCell(r){
+  if(!r){
+    return `
+      <div class="dayCell">
+        <div class="dayLine"><span class="lab">Ent:</span> <span class="val">-</span></div>
+        <div class="dayLine"><span class="lab">Ini:</span> <span class="val">-</span></div>
+        <div class="dayLine"><span class="lab">Fim:</span> <span class="val">-</span></div>
+        <div class="dayLine"><span class="lab">Sai:</span> <span class="val">-</span></div>
+        <div class="dayLine total"><span class="lab">Hrs:</span> <span class="val">-</span></div>
+      </div>
+    `;
+  }
+
+  const horas = calcHorasTrabalhadas(r);
+
+  return `
+    <div class="dayCell">
+      <div class="dayLine"><span class="lab">Ent:</span> <span class="val">${hhmm(r.chegada)}</span></div>
+      <div class="dayLine"><span class="lab">Ini:</span> <span class="val">${hhmm(r.ini_intervalo)}</span></div>
+      <div class="dayLine"><span class="lab">Fim:</span> <span class="val">${hhmm(r.fim_intervalo)}</span></div>
+      <div class="dayLine"><span class="lab">Sai:</span> <span class="val">${hhmm(r.saida)}</span></div>
+      <div class="dayLine total"><span class="lab">Hrs:</span> <span class="val">${horas == null ? "-" : secondsToHHMM(horas)}</span></div>
+    </div>
+  `;
 }
 
 async function carregarSemanaAdmin(){
@@ -431,8 +448,17 @@ async function carregarSemanaAdmin(){
     return showSemMsg("Funcionário não encontrado.", false);
   }
 
-  const start = semana;
-  const end = addDaysISO(semana, 5); // segunda até sábado
+  const diasSemana = [
+    addDaysISO(semana, 0),
+    addDaysISO(semana, 1),
+    addDaysISO(semana, 2),
+    addDaysISO(semana, 3),
+    addDaysISO(semana, 4),
+    addDaysISO(semana, 5),
+  ];
+
+  const start = diasSemana[0];
+  const end = diasSemana[5];
   const empIds = lista.map(f => f.emp_id);
 
   const rows = await getPontosSemana(empIds, start, end);
@@ -443,18 +469,8 @@ async function carregarSemanaAdmin(){
 
   const mapa = new Map();
   for(const r of rows){
-    const key = `${r.emp_id}|${r.data}`;
-    mapa.set(key, r);
+    mapa.set(`${r.emp_id}|${r.data}`, r);
   }
-
-  const diasSemana = [
-    addDaysISO(semana, 0),
-    addDaysISO(semana, 1),
-    addDaysISO(semana, 2),
-    addDaysISO(semana, 3),
-    addDaysISO(semana, 4),
-    addDaysISO(semana, 5),
-  ];
 
   let html = "";
 
@@ -464,7 +480,7 @@ async function carregarSemanaAdmin(){
 
     const trabalhaSab = await getEscalaSemana(f.emp_id, semana);
 
-    const cells = [];
+    const dayCells = [];
     for(const dia of diasSemana){
       const r = mapa.get(`${f.emp_id}|${dia}`);
       const horas = r ? calcHorasTrabalhadas(r) : null;
@@ -475,13 +491,13 @@ async function carregarSemanaAdmin(){
         saldoSem += (horas - meta);
       }
 
-      cells.push(`<td>${cellHoras(horas)}</td>`);
+      dayCells.push(`<td class="weekDayTd">${renderDayCell(r)}</td>`);
     }
 
     html += `
       <tr>
         <td class="tdName" title="#${f.emp_id} ${f.nome || ""}">#${f.emp_id} ${f.nome || ""}</td>
-        ${cells.join("")}
+        ${dayCells.join("")}
         <td>${secondsToHHMM(totalSem)}</td>
         <td class="${saldoSem >= 0 ? "pos" : "neg"}">${secondsToHHMMsigned(saldoSem)}</td>
         <td>${trabalhaSab ? "Com sábado" : "Sem sábado"}</td>
