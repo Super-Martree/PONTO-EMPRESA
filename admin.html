@@ -29,10 +29,8 @@
     <section class="card">
       <h2>Admin</h2>
       <p class="muted">Se você está vendo isso, você é admin ✅</p>
-      <!-- aqui depois você coloca ações: gerenciar escala, ver todos os pontos etc -->
     </section>
 
-    <!-- ✅ NOVO CARD: Escala de sábado -->
     <section class="card">
       <h2>Escala: Semana com sábado</h2>
 
@@ -65,7 +63,6 @@
       <p id="admMsg" class="msg"></p>
     </section>
 
-    <!-- ✅ NOVO CARD: Exportar CSV do mês -->
     <section class="card">
       <h2>Exportar CSV do mês</h2>
 
@@ -95,12 +92,7 @@
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabaseUrl = "https://gnmwpudkvhsmtxmypuyt.supabase.co";
-    const supabaseKey = "sb_publishable_ewFZG81p4bVSO3Koyhp_LQ_xI4bXPTc";
-    window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-  </script>
-
+  <script src="supabase.js"></script>
   <script src="admin.js?v=1"></script>
 </body>
 </html>
