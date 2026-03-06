@@ -86,7 +86,7 @@
       <p id="semMsg" class="msg"></p>
 
       <div class="tableWrap" style="margin-top:12px;">
-        <table class="weekTable">
+        <table class="weekTable weekTableDetailed">
           <thead>
             <tr>
               <th>Funcionário</th>
@@ -110,7 +110,7 @@
       </div>
 
       <p class="muted small" style="margin-top:10px;">
-        Em cada dia será exibido: horas trabalhadas. Se não houver registro completo de chegada e saída, aparece “-”.
+        Em cada dia será exibido: chegada, início do intervalo, fim do intervalo, saída e horas trabalhadas.
       </p>
     </section>
 
@@ -144,6 +144,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-  <script src="admin.js?v=2"></script>
+  <script src="admin.js?v=3"></script>
 </body>
 </html>
