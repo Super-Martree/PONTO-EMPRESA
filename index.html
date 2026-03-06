@@ -10,8 +10,6 @@
 
   <header class="top">
     <div class="topInner">
-
-      <!-- ✅ Logo + Título + Empresa -->
       <div class="brand">
         <img src="assets/logo.png" alt="Logo Martree" class="logo" />
 
@@ -19,28 +17,30 @@
           <h1>Registro de Ponto</h1>
           <p class="empresa">Martree</p>
           <p class="muted">Chegada • Intervalo • Saída</p>
-          </div>
-         </div>
-      <div style="display:flex; gap:10px;">
-    <button onclick="window.location.href='mes.html'" class="btn ghost">
-      Meu mês
-    </button>
-        <button id="btnAdmin" onclick="window.location.href='./admin.html'" class="btn ghost" style="display:none;">
-  Admin
-</button>
+        </div>
+      </div>
 
-    <button id="btnLogout" class="btn ghost" type="button">
-      Sair
-    </button>
-  </div>
-</div>
+      <div style="display:flex; gap:10px;">
+        <button onclick="window.location.href='mes.html'" class="btn ghost">
+          Meu mês
+        </button>
+
+        <button id="btnAdmin" onclick="window.location.href='./admin.html'" class="btn ghost" style="display:none;">
+          Admin
+        </button>
+
+        <button id="btnLogout" class="btn ghost" type="button">
+          Sair
+        </button>
+      </div>
+    </div>
   </header>
 
   <main class="wrap compact">
 
     <section class="card">
       <h2>Bater ponto</h2>
-      
+
       <div class="row">
         <div>
           <label>Data</label>
@@ -102,12 +102,7 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    const supabaseUrl = "https://gnmwpudkvhsmtxmypuyt.supabase.co";
-    const supabaseKey = "sb_publishable_ewFZG81p4bVSO3Koyhp_LQ_xI4bXPTc";
-    window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-  </script>
-
+  <script src="supabase.js"></script>
   <script src="script.js?v=1"></script>
 </body>
 </html>
