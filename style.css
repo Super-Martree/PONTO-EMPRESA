@@ -1,0 +1,239 @@
+:root{
+  --bg:#0b1220; --card:#101a30; --text:#e7ecff; --muted:#b8c0e6;
+  --line:rgba(255,255,255,.10); --ok:#22c55e; --danger:#ef4444;
+  --shadow:0 18px 50px rgba(0,0,0,.35); --r:16px;
+
+  /* ✅ novo: destaque "Martree" */
+  --accent:#4cc9f0;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;
+  background: radial-gradient(900px 500px at 20% 0%, rgba(34,197,94,.16), transparent 55%),
+              radial-gradient(900px 500px at 90% 10%, rgba(59,130,246,.14), transparent 55%),
+              var(--bg);
+  color:var(--text);
+}
+
+/* ===== Header ===== */
+.top{padding:0}
+.topInner{
+  width:min(980px,92%);
+  margin:0 auto;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:14px;
+  padding:22px 0 8px;
+}
+.top h1{margin:0; font-size:28px; line-height:1.1}
+
+/* ✅ novo: Logo + títulos */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.logo{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  border-radius:12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  padding: 6px;
+}
+.topTitle{ display:flex; flex-direction:column; gap:4px; }
+.empresa{
+  margin:0;
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-weight:800;
+  color: var(--accent);
+  opacity:.95;
+}
+
+/* mantém seu layout */
+.wrap{
+  width:min(980px,92%);
+  margin:0 auto;
+  padding:14px 0 34px;
+  display:grid;
+  gap:14px;
+}
+
+/* ===== MODO COMPACTO (index) ===== */
+.wrap.compact{ padding-top:10px; }
+.wrap.compact .card{ padding:14px; }
+.wrap.compact h2{ margin-bottom:8px; }
+.wrap.compact label{ margin-top:8px; }
+.wrap.compact .grid{ margin-top:10px; }
+.wrap.compact .msg{ margin-top:8px; }
+
+.card{
+  background:rgba(16,26,48,.86);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:16px;
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(6px);
+}
+h2{margin:0 0 10px}
+label{display:block; margin:10px 0 6px; color:var(--muted); font-size:14px}
+
+input{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  outline:none;
+}
+.row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+.row.between{grid-template-columns:1fr auto; align-items:center}
+.actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+.grid.grid-compact{ gap:10px; }
+
+.btn{
+  padding:12px;
+  border-radius:14px;
+  border:none;
+  background:var(--ok);
+  color:#05200f;
+  font-weight:800;
+  cursor:pointer;
+}
+.btn.ghost{
+  background:rgba(255,255,255,.06);
+  color:var(--text);
+  border:1px solid var(--line);
+}
+.btn.danger{background:var(--danger); color:#1b0606}
+
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.msg{margin:10px 0 0; min-height:20px}
+
+.tableWrap{
+  overflow:auto;
+  border-radius:14px;
+  border:1px solid var(--line);
+  margin-top:10px;
+}
+table{width:100%; border-collapse:collapse; min-width:860px}
+th,td{padding:10px 12px; border-bottom:1px solid var(--line); text-align:left}
+th{color:var(--muted); font-size:13px}
+td{font-size:14px}
+
+.foot{padding:16px 0 26px; text-align:center; color: rgba(184,192,230,.9);}
+
+/* Inputs travados */
+input:disabled{
+  opacity:.65;
+  cursor:not-allowed;
+  background:rgba(255,255,255,.02);
+}
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .row{grid-template-columns:1fr}
+  .row.between{grid-template-columns:1fr}
+  .actions{justify-content:flex-start}
+  .topInner{flex-direction:column; align-items:flex-start;}
+}
+
+/* ===== CELULAR ===== */
+@media (max-width:560px){
+  .topInner{
+    width:min(980px,94%);
+    padding:16px 0 6px;
+    gap:10px;
+  }
+  .top h1{ font-size:20px; }
+  .muted{ line-height:1.2; }
+
+  /* ✅ novo: ajusta logo no celular */
+  .brand{ gap:12px; }
+  .logo{ width:44px; height:44px; border-radius:12px; padding:6px; }
+  .empresa{ font-size:11px; letter-spacing:2.5px; }
+
+  .wrap{
+    width:min(980px,94%);
+    padding:10px 0 24px;
+    gap:12px;
+  }
+  .card{ padding:12px; border-radius:14px; }
+  label{ font-size:13px; margin:8px 0 6px; }
+  input{ padding:11px; border-radius:12px; }
+
+  .grid{ grid-template-columns:repeat(2,1fr); gap:10px; }
+  .btn{ padding:12px 10px; border-radius:12px; font-size:14px; }
+
+  .actions{ gap:8px; }
+  .btn.ghost{ width:100%; }
+}
+
+/* ===== Polish ===== */
+:where(a, button, input):focus-visible{
+  outline: 3px solid rgba(34,197,94,.55);
+  outline-offset: 2px;
+}
+.btn{
+  transition: transform .06s ease, filter .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn:hover{ filter: brightness(1.05); }
+.btn:active{ transform: translateY(1px); }
+.btn.ghost:hover{ background: rgba(255,255,255,.09); }
+input::placeholder{ color: rgba(184,192,230,.65); }
+input:hover{ border-color: rgba(255,255,255,.18); }
+
+thead th{
+  position: sticky;
+  top: 0;
+  background: rgba(16,26,48,.95);
+  backdrop-filter: blur(6px);
+  z-index: 1;
+}
+tbody tr:nth-child(even){ background: rgba(255,255,255,.02); }
+tbody tr:hover{ background: rgba(34,197,94,.06); }
+
+/* ===== TABELA DE HOJE (compacta e abreviada) ===== */
+.tableWrap.compactTable table{
+  min-width: 0; /* permite ficar compacta */
+}
+.tableWrap.compactTable th,
+.tableWrap.compactTable td{
+  padding: 9px 10px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.tdName{
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width:560px){
+  .tdName{ max-width: 150px; }
+  .tableWrap.compactTable th,
+  .tableWrap.compactTable td{
+    padding: 8px 8px;
+    font-size: 12px;
+  }
+}
+.pos{ color: #22c55e; font-weight: 800; }
+.neg{ color: #ef4444; font-weight: 800; }
