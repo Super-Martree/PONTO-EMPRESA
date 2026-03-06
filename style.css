@@ -255,3 +255,60 @@ tbody tr:hover{ background: rgba(34,197,94,.06); }
 .weekTable td{
   white-space: nowrap;
 }
+.inputLike{
+  width:100%;
+  padding:12px;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  outline:none;
+}
+
+.weekTable{
+  min-width: 1380px;
+}
+
+.weekTableDetailed th,
+.weekTableDetailed td{
+  vertical-align: top;
+}
+
+.weekDayTd{
+  min-width: 140px;
+}
+
+.dayCell{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:130px;
+}
+
+.dayLine{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  font-size:12px;
+  line-height:1.2;
+}
+
+.dayLine .lab{
+  color:var(--muted);
+  font-weight:700;
+}
+
+.dayLine .val{
+  color:var(--text);
+  font-weight:600;
+}
+
+.dayLine.total{
+  margin-top:4px;
+  padding-top:4px;
+  border-top:1px dashed rgba(255,255,255,.10);
+}
+
+.dayLine.total .val{
+  font-weight:800;
+}
