@@ -10,16 +10,16 @@
   <header class="top">
     <div class="topInner">
       <div class="brand">
-        <img src="assets/logo.png" class="logo" />
+        <img src="assets/logo.png" class="logo" alt="Logo Martree" />
         <div class="topTitle">
           <h1>Painel Admin</h1>
           <p class="empresa">Martree</p>
         </div>
       </div>
 
-      <div style="display:flex; gap:10px;">
-        <button onclick="window.location.href='index.html'" class="btn ghost">Voltar</button>
-        <button id="btnLogout" class="btn ghost">Sair</button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button onclick="window.location.href='index.html'" class="btn ghost" type="button">Voltar</button>
+        <button id="btnLogout" class="btn ghost" type="button">Sair</button>
       </div>
     </div>
   </header>
@@ -37,7 +37,7 @@
       <div class="row" style="grid-template-columns:1fr 1fr; align-items:end;">
         <div>
           <label>Funcionário</label>
-          <select id="admEmp" style="width:100%; padding:12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text);">
+          <select id="admEmp" class="inputLike">
             <option value="">Carregando...</option>
           </select>
         </div>
@@ -54,7 +54,7 @@
           <p class="muted small" id="admStatus" style="margin:0;">Status: -</p>
         </div>
 
-        <div style="display:flex; gap:10px; justify-content:flex-end;">
+        <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
           <button id="admToggleSabado" class="btn ghost" type="button">Trabalhar sábado: -</button>
           <button id="admSalvar" class="btn" type="button">Salvar</button>
         </div>
@@ -64,12 +64,63 @@
     </section>
 
     <section class="card">
+      <h2>Consulta semanal</h2>
+
+      <div class="row" style="grid-template-columns:1fr 1fr auto; align-items:end;">
+        <div>
+          <label>Funcionário</label>
+          <select id="semEmp" class="inputLike">
+            <option value="">Carregando...</option>
+          </select>
+          <p class="muted small" style="margin:6px 0 0;">Use “Todos os funcionários” para ver a semana geral.</p>
+        </div>
+
+        <div>
+          <label>Semana</label>
+          <input id="semSemana" type="date" />
+        </div>
+
+        <button id="btnSemanal" class="btn" type="button">Carregar semana</button>
+      </div>
+
+      <p id="semMsg" class="msg"></p>
+
+      <div class="tableWrap" style="margin-top:12px;">
+        <table class="weekTable">
+          <thead>
+            <tr>
+              <th>Funcionário</th>
+              <th>Seg</th>
+              <th>Ter</th>
+              <th>Qua</th>
+              <th>Qui</th>
+              <th>Sex</th>
+              <th>Sáb</th>
+              <th>Total</th>
+              <th>Saldo</th>
+              <th>Escala</th>
+            </tr>
+          </thead>
+          <tbody id="semTbody">
+            <tr>
+              <td colspan="10">Selecione a semana e carregue.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="muted small" style="margin-top:10px;">
+        Em cada dia será exibido: horas trabalhadas. Se não houver registro completo de chegada e saída, aparece “-”.
+      </p>
+    </section>
+
+    <section class="card">
       <h2>Exportar CSV do mês</h2>
 
       <div class="row" style="grid-template-columns:1fr 1fr auto; align-items:end;">
         <div>
           <label>Funcionário</label>
-          <select id="csvEmp" style="width:100%; padding:12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text);">
+          <select id="csvEmp" class="inputLike">
             <option value="">Carregando...</option>
           </select>
         </div>
@@ -93,6 +144,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
-  <script src="admin.js?v=1"></script>
+  <script src="admin.js?v=2"></script>
 </body>
 </html>
