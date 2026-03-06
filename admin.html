@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | Martree</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="topInner">
+      <div class="brand">
+        <img src="assets/logo.png" class="logo" />
+        <div class="topTitle">
+          <h1>Painel Admin</h1>
+          <p class="empresa">Martree</p>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button onclick="window.location.href='index.html'" class="btn ghost">Voltar</button>
+        <button id="btnLogout" class="btn ghost">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap compact">
+
+    <section class="card">
+      <h2>Admin</h2>
+      <p class="muted">Se você está vendo isso, você é admin ✅</p>
+      <!-- aqui depois você coloca ações: gerenciar escala, ver todos os pontos etc -->
+    </section>
+
+    <!-- ✅ NOVO CARD: Escala de sábado -->
+    <section class="card">
+      <h2>Escala: Semana com sábado</h2>
+
+      <div class="row" style="grid-template-columns:1fr 1fr; align-items:end;">
+        <div>
+          <label>Funcionário</label>
+          <select id="admEmp" style="width:100%; padding:12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text);">
+            <option value="">Carregando...</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Semana (segunda-feira)</label>
+          <input id="admSemana" type="date" />
+          <p class="muted small" style="margin:6px 0 0;">Dica: pode escolher qualquer dia que eu ajusto pra segunda.</p>
+        </div>
+      </div>
+
+      <div class="row" style="grid-template-columns:1fr auto; align-items:center; margin-top:10px;">
+        <div>
+          <p class="muted small" id="admStatus" style="margin:0;">Status: -</p>
+        </div>
+
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button id="admToggleSabado" class="btn ghost" type="button">Trabalhar sábado: -</button>
+          <button id="admSalvar" class="btn" type="button">Salvar</button>
+        </div>
+      </div>
+
+      <p id="admMsg" class="msg"></p>
+    </section>
+
+    <!-- ✅ NOVO CARD: Exportar CSV do mês -->
+    <section class="card">
+      <h2>Exportar CSV do mês</h2>
+
+      <div class="row" style="grid-template-columns:1fr 1fr auto; align-items:end;">
+        <div>
+          <label>Funcionário</label>
+          <select id="csvEmp" style="width:100%; padding:12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--text);">
+            <option value="">Carregando...</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Mês</label>
+          <input id="csvMes" type="month" />
+        </div>
+
+        <button id="btnCsv" class="btn" type="button">Baixar CSV</button>
+      </div>
+
+      <p class="muted small" style="margin-top:10px;">
+        Gera um CSV detalhado com: Data, Chegada, Início/Fim intervalo, Saída, Horas, Meta, Saldo do dia e Acumulado.
+      </p>
+
+      <p id="csvMsg" class="msg"></p>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = "https://gnmwpudkvhsmtxmypuyt.supabase.co";
+    const supabaseKey = "sb_publishable_ewFZG81p4bVSO3Koyhp_LQ_xI4bXPTc";
+    window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+  </script>
+
+  <script src="admin.js?v=1"></script>
+</body>
+</html>
